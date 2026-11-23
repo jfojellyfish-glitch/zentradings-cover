@@ -47,7 +47,7 @@
 <body>
   <main class="shell">
     <header>
-      <div><h1>Zen Trading 封面生成器</h1><p>编辑日期和关键词，实时生成每日市场封面。每张封面默认包含 Zen Coding 与 Zen Newsletter 产品图标。</p></div>
+      <div><h1>Zen Trading 封面生成器</h1><p>编辑日期和关键词，实时生成每日市场封面。每张封面默认包含 Zen-Coding Agent 与 Zen Feed 产品图标。</p></div>
       <div class="status">Spot the Pattern, Seek the Unconventional</div>
     </header>
     <div class="layout">
@@ -122,11 +122,11 @@
       if(brandLogo && brandLogo.complete) ctx.drawImage(brandLogo,logoX,pad,size*ratio,size); else drawMark(logoX,pad*.86,size);
       ctx.fillStyle='rgba(238,244,253,.92)';ctx.textAlign='left';ctx.fillText('ZEN TRADING',logoX+size*ratio+18,pad+size*.64);ctx.letterSpacing='0px';
     }
-    // Always-on product identifiers: Zen Code + Newsletter.
+    // Always-on product identifiers: Zen-Coding Agent + Zen Feed.
     // Vector drawings are part of the canvas and therefore also appear in exported PNGs.
     function drawProductSymbol(kind, x, y, size){
       ctx.save();ctx.translate(x,y);ctx.scale(size/24,size/24);
-      ctx.strokeStyle='rgba(216,230,250,.96)';ctx.lineWidth=1.85;ctx.lineCap='round';ctx.lineJoin='round';
+      ctx.strokeStyle='rgba(216,230,250,.62)';ctx.lineWidth=1.85;ctx.lineCap='round';ctx.lineJoin='round';
       if(kind==='code'){
         ctx.beginPath();ctx.roundRect(2,2,20,14,2);ctx.stroke();
         ctx.beginPath();ctx.moveTo(0,19);ctx.lineTo(24,19);ctx.lineTo(21,22);ctx.lineTo(3,22);ctx.closePath();ctx.stroke();
@@ -148,10 +148,10 @@
       const iconY=square?35:49;
       ctx.font=`600 ${fontSize}px 'Zen Montserrat', Montserrat, sans-serif`;
       ctx.textBaseline='middle';ctx.textAlign='left';ctx.letterSpacing=square?'1.3px':'1.05px';
-      ctx.fillStyle='rgba(221,234,253,.94)';
+      ctx.fillStyle='rgba(221,234,253,.68)';
       drawProductSymbol('code',edge,iconY,iconSize);
-      ctx.fillText('ZEN CODING',edge+iconSize+labelGap,iconY+iconSize/2);
-      const label='ZEN NEWSLETTER';
+      ctx.fillText('Zen-Coding Agent',edge+iconSize+labelGap,iconY+iconSize/2);
+      const label='Zen Feed';
       const itemWidth=iconSize+labelGap+ctx.measureText(label).width;
       const rightX=w-edge-itemWidth;
       drawProductSymbol('news',rightX,iconY,iconSize);

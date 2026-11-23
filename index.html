@@ -47,7 +47,7 @@
 <body>
   <main class="shell">
     <header>
-      <div><h1>Zen Trading 封面生成器</h1><p>编辑日期和关键词，实时生成每日市场封面。每张封面默认包含 Zen Code 与 Newsletter 产品图标。</p></div>
+      <div><h1>Zen Trading 封面生成器</h1><p>编辑日期和关键词，实时生成每日市场封面。每张封面默认包含 Zen Coding 与 Zen Newsletter 产品图标。</p></div>
       <div class="status">Spot the Pattern, Seek the Unconventional</div>
     </header>
     <div class="layout">
@@ -141,17 +141,17 @@
     }
     function drawProductIdentifiers(w,h,square){
       ctx.save();
-      const iconSize=square?27:20;
-      const fontSize=square?14:11.5;
-      const labelGap=square?12:9;
-      const edge=square?57:50;
-      const iconY=square?105:62;
+      const iconSize=square?38:30;
+      const fontSize=square?16:13.5;
+      const labelGap=square?12:10;
+      const edge=square?48:42;
+      const iconY=square?98:58;
       ctx.font=`500 ${fontSize}px 'Zen Montserrat', Montserrat, sans-serif`;
       ctx.textBaseline='middle';ctx.textAlign='left';ctx.letterSpacing=square?'1.3px':'1.05px';
       ctx.fillStyle='rgba(195,213,238,.82)';
       drawProductSymbol('code',edge,iconY,iconSize);
-      ctx.fillText('ZEN CODE',edge+iconSize+labelGap,iconY+iconSize/2);
-      const label='NEWSLETTER';
+      ctx.fillText('ZEN CODING',edge+iconSize+labelGap,iconY+iconSize/2);
+      const label='ZEN NEWSLETTER';
       const itemWidth=iconSize+labelGap+ctx.measureText(label).width;
       const rightX=w-edge-itemWidth;
       drawProductSymbol('news',rightX,iconY,iconSize);

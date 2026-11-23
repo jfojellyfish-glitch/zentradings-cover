@@ -47,7 +47,7 @@
 <body>
   <main class="shell">
     <header>
-      <div><h1>Zen Trading 封面生成器</h1><p>编辑日期和关键词，实时生成每日市场封面。</p></div>
+      <div><h1>Zen Trading 封面生成器</h1><p>编辑日期和关键词，实时生成每日市场封面。每张封面默认包含 Zen Code 与 Newsletter 产品图标。</p></div>
       <div class="status">Spot the Pattern, Seek the Unconventional</div>
     </header>
     <div class="layout">
@@ -122,6 +122,42 @@
       if(brandLogo && brandLogo.complete) ctx.drawImage(brandLogo,logoX,pad,size*ratio,size); else drawMark(logoX,pad*.86,size);
       ctx.fillStyle='rgba(238,244,253,.92)';ctx.textAlign='left';ctx.fillText('ZEN TRADING',logoX+size*ratio+18,pad+size*.64);ctx.letterSpacing='0px';
     }
+    // Always-on product identifiers: Zen Code + Newsletter.
+    // Vector drawings are part of the canvas and therefore also appear in exported PNGs.
+    function drawProductSymbol(kind, x, y, size){
+      ctx.save();ctx.translate(x,y);ctx.scale(size/24,size/24);
+      ctx.strokeStyle='rgba(200,219,243,.92)';ctx.lineWidth=1.65;ctx.lineCap='round';ctx.lineJoin='round';
+      if(kind==='code'){
+        ctx.beginPath();ctx.roundRect(2,2,20,14,2);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(0,19);ctx.lineTo(24,19);ctx.lineTo(21,22);ctx.lineTo(3,22);ctx.closePath();ctx.stroke();
+      }else{
+        ctx.beginPath();ctx.roundRect(3,2,18,20,2);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(7,6);ctx.lineTo(17,6);ctx.moveTo(7,10);ctx.lineTo(10,10);
+        ctx.moveTo(7,13);ctx.lineTo(10,13);ctx.moveTo(7,16);ctx.lineTo(17,16);
+        ctx.moveTo(7,19);ctx.lineTo(17,19);ctx.stroke();
+        ctx.strokeRect(12.5,9.5,5.5,4.5);
+      }
+      ctx.restore();
+    }
+    function drawProductIdentifiers(w,h,square){
+      ctx.save();
+      const iconSize=square?27:20;
+      const fontSize=square?14:11.5;
+      const labelGap=square?12:9;
+      const edge=square?57:50;
+      const iconY=square?105:62;
+      ctx.font=`500 ${fontSize}px 'Zen Montserrat', Montserrat, sans-serif`;
+      ctx.textBaseline='middle';ctx.textAlign='left';ctx.letterSpacing=square?'1.3px':'1.05px';
+      ctx.fillStyle='rgba(195,213,238,.82)';
+      drawProductSymbol('code',edge,iconY,iconSize);
+      ctx.fillText('ZEN CODE',edge+iconSize+labelGap,iconY+iconSize/2);
+      const label='NEWSLETTER';
+      const itemWidth=iconSize+labelGap+ctx.measureText(label).width;
+      const rightX=w-edge-itemWidth;
+      drawProductSymbol('news',rightX,iconY,iconSize);
+      ctx.fillText(label,rightX+iconSize+labelGap,iconY+iconSize/2);
+      ctx.restore();
+    }
     function render(){
       const square=$('format').value==='square'; canvas.width=900;canvas.height=square?900:383;
       const w=canvas.width,h=canvas.height,pad=square?66:52;drawBackground(w,h);drawBrand(w,h,pad);
@@ -140,6 +176,7 @@
         ctx.textAlign='center';ctx.fillStyle='#7f95b7';ctx.font="500 11px 'Zen Montserrat', Montserrat, sans-serif";ctx.fillText($('tags').value.toUpperCase(),w/2,h-37);
       }
       ctx.textAlign='left';
+      drawProductIdentifiers(w,h,square);
     }
     function setImportStatus(message,success=false){const el=$('importStatus');el.textContent=message;el.classList.toggle('success',success)}
     function listValue(value){
